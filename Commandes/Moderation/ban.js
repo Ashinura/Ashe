@@ -19,7 +19,7 @@ module.exports = {
             type: "string",
             name: "raison",
             description: "La raison du bannissement", 
-            required: false,
+            required: true,
             autocomplete: false
         },
         {
@@ -44,7 +44,7 @@ module.exports = {
             if (!reason) { reason = "Aucune raison fournie."}
 
             let notif = args.getString("notification")
-            if (!notif) notif = 'Oui'
+            if (!notif) notif = 'Non'
 
             if (message.user.id === user.id) return message.reply("\`❌\` | Tu ne peux pas te bannir")
             if ( (await message.guild.fetchOwner()).id === user.id) return message.reply("\`❌\` | Tu ne peux pas bannir le propriétaire de ce serveur")
@@ -65,7 +65,7 @@ module.exports = {
             }
 
 
-            // await message.guild.bans.create(user.id, {reason: reason})
+            await message.guild.bans.create(user.id, {reason: reason})
 
 
             const Embed = new Discord.EmbedBuilder()
