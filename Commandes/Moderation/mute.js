@@ -27,7 +27,7 @@ module.exports = {
             type: "string",
             name: "raison",
             description: "La raison du mute", 
-            required: false,
+            required: true,
             autocomplete: false
         },
         {
