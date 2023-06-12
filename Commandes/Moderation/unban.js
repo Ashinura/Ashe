@@ -19,7 +19,7 @@ module.exports = {
             type: "string",
             name: "raison",
             description: "La raison du débannissement", 
-            required: false,
+            required: true,
             autocomplete: false
         },
         {
@@ -41,17 +41,33 @@ module.exports = {
             let reason = args.getString("raison")
             if (!reason) { reason = "Aucune raison fournie."}
 
+            let notif = args.getString("notification")
+            if (!notif) notif = 'Non'
+
             if ( (await message.guild.bans.fetch()).get(user.id).size <= 0 ) return message.reply("\`❌\` | Ce membre n'est pas banni")
 
-            try {await user.send(`Tu as été débanni de \`${message.guild.name}\`\n\nRaison : \`${reason}\``)} catch(err) {}
+
+            await message.guild.members.unban(user, reason)
 
 
+            if (notif == 'Oui') {
+
+                const notifuser = new Discord.EmbedBuilder()
+                .setColor(bot.color)
+                .setThumbnail(message.guild.iconURL({ dynamic: true }))
+            
+                .setTitle(`🛡️ | Tu as été banni`)
+                .setDescription(`Tu as été banni de \`${message.guild.tag}\`\n\nRaison : \`${reason}\``)
+    
+                try {await user.send({embeds: [notifuser]})} catch(err) {}
+            }
+            
             const Embed = new Discord.EmbedBuilder()
                 .setColor(bot.color)
                 .setThumbnail(message.guild.iconURL({ dynamic: true }))
 
                 .setTitle(`🛡️ | Quelqu'un est débanni`)
-                .setDescription(`${message.user} a débanni : \`${user.tag}\`   \n\n**Raison : **\`${reason}\``)
+                .setDescription(`${message.user} a débanni : \`${user.tag}\`   \n\n**Raison : **\`${reason}\`\n**Notification : **\`${notif}\``)
 
             await message.reply({embeds: [Embed] })
 

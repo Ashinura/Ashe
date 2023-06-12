@@ -56,7 +56,7 @@ module.exports = {
         if (!reason) { reason = "Aucune raison fournie."}
 
         let notif = args.getString("notification")
-        if (!notif) notif = 'Oui'
+        if (!notif) notif = 'Non'
 
 
         let result = time.indexOf("d")

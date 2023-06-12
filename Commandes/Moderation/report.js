@@ -49,7 +49,7 @@ module.exports = {
         if (!modoReason) { modoReason = "Aucune raison fournie."}
 
         let notif = args.getString("notification")
-        if (!notif) notif = 'Oui'
+        if (!notif) notif = 'Non'
 
         if (message.user.id === user.id) return message.reply("\`❌\` | Tu ne peux pas te report")
         if (bot.user.id === user.id) return message.reply("\`❌\` | Tu ne peux pas me report :)")

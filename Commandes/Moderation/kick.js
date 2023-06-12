@@ -19,7 +19,7 @@ module.exports = {
             type: "string",
             name: "raison",
             description: "La raison de l'expulsion", 
-            required: false,
+            required: true,
             autocomplete: false
         },
         {
@@ -43,7 +43,7 @@ module.exports = {
         if (!reason) {reason = "Aucune raison fournie."}
 
         let notif = args.getString("notification")
-        if (!notif) notif = 'Oui'
+        if (!notif) notif = 'Non'
 
         if (message.user.id === user.id) return message.reply("\`❌ |\` Tu ne peux pas te expulser")
         if ( (await message.guild.fetchOwner()).id === user.id) return message.reply("\`❌ |\` Tu ne peux pas expulser le propriétaire de ce serveur")
