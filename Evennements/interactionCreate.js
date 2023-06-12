@@ -51,8 +51,6 @@ module.exports = async (bot, interaction) => {
         }
     } catch {}
 
-
-
     try {
 
         if (interaction.type === Discord.InteractionType.ApplicationCommand) { 
@@ -62,8 +60,6 @@ module.exports = async (bot, interaction) => {
         }
     } catch {}
 
-
-
     try {
         
         if (interaction.type === Discord.InteractionType.ApplicationCommand) { 
@@ -72,8 +68,6 @@ module.exports = async (bot, interaction) => {
             command.run(bot, interaction, interaction.options)
         }
     } catch {}
-
-
 
     try {
         
