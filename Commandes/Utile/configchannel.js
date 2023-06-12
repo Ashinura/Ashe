@@ -22,7 +22,7 @@ module.exports = {
             autocomplete: false
         }, {
             type: "string",
-            name: "évènement",
+            name: "événement",
             description: "Pour quel occasion le bot envoie un message personnalisé",
             required: true,
             autocomplete: true

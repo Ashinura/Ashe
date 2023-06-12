@@ -7,6 +7,8 @@ module.exports = async (bot, interaction) => {
 
         let entry = interaction.options.getFocused()
 
+        // Autres
+
         if (interaction.commandName === 'help') {
 
             let choices = bot.commands.filter(cmd => cmd.name.includes(entry))
@@ -27,14 +29,10 @@ module.exports = async (bot, interaction) => {
 		    await interaction.respond(filtered.map(choice => ({ name: choice, value: choice })))
         }
 
-        if (interaction.commandName === 'mute') {
 
-            let choices = ["Oui", "Non"]
-            const filtered = choices.filter(choice => choice.startsWith(entry));
-		    await interaction.respond(filtered.map(choice => ({ name: choice, value: choice })))
-        }
+        // Notification
 
-        if (interaction.commandName === 'report') {
+        if (interaction.commandName === "ban" || "kick" || "mute" || "report" || "unban" || "unmute") {
 
             let choices = ["Oui", "Non"]
             const filtered = choices.filter(choice => choice.startsWith(entry));

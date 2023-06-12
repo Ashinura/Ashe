@@ -19,7 +19,7 @@ module.exports = {
             type: "string",
             name: "raison",
             description: "La raison du unmute", 
-            required: false,
+            required: true,
             autocomplete: false
         },
         {

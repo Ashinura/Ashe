@@ -21,6 +21,13 @@ module.exports = {
             description: "La raison du débannissement", 
             required: false,
             autocomplete: false
+        },
+        {
+            type: "string",
+            name: "notification",
+            description: "Est ce que le membre reçoit une notification en MP, 'Oui' par défaut", 
+            required: false,
+            autocomplete: true
         }
     ],
 
