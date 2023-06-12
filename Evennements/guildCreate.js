@@ -1,8 +1,11 @@
 const Discord = require("discord.js")
-const { Guilds } = require('../Database/loadModels')
 const mongoose = require('mongoose')
 const { MongoClient } = require("mongodb")
-const client = new MongoClient('mongodb+srv://AsheTheBot:F9J8OJApmOqXv5xV@ashe.hprndkb.mongodb.net/Ashe')
+
+const { Guilds } = require('../Database/loadModels')
+const { cluster } = require("../config.json")
+const client = new MongoClient(cluster)
+
 
 module.exports = ("guildCreate", async (bot, guild) => {
 

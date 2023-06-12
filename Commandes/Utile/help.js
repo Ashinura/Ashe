@@ -1,5 +1,5 @@
 const Discord = require("discord.js")
-const { name } = require("../Information/userinfo")
+
 
 module.exports = {
 

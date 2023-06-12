@@ -1,8 +1,11 @@
 const Discord = require('discord.js')
 const { MongoClient } = require("mongodb")
-const client = new MongoClient('mongodb+srv://AsheTheBot:F9J8OJApmOqXv5xV@ashe.hprndkb.mongodb.net/Ashe')
+
+const { cluster } = require("../config.json")
+const client = new MongoClient(cluster)
 
 let goodbyeChannelID = "Aucun"
+
 
 module.exports = ("guildMemberRemove", async (bot, member) => {
 

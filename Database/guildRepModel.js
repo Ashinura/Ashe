@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+
 const newGuildReportModel = mongoose.Schema({
 
     serverName: {

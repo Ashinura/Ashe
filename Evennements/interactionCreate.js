@@ -20,16 +20,16 @@ module.exports = async (bot, interaction) => {
 		    await interaction.respond(filtered.map(choice => ({ name: choice, value: choice })))
         }
 
-        if (interaction.commandName === 'mute') {
+        if (interaction.commandName === 'configchannel') {
 
-            let choices = ["Oui", "Non"]
+            let choices = ["Quand un membre arrive sur le serveur", "Quand un membre quitte le serveur", "Quand un membre arrive ou quitte le serveur", "Aucun"]
             const filtered = choices.filter(choice => choice.startsWith(entry));
 		    await interaction.respond(filtered.map(choice => ({ name: choice, value: choice })))
         }
 
-        if (interaction.commandName === 'configchannel') {
+        if (interaction.commandName === 'mute') {
 
-            let choices = ["Quand un membre arrive sur le serveur", "Quand un membre quitte le serveur", "Quand un membre arrive ou quitte le serveur", "Aucun"]
+            let choices = ["Oui", "Non"]
             const filtered = choices.filter(choice => choice.startsWith(entry));
 		    await interaction.respond(filtered.map(choice => ({ name: choice, value: choice })))
         }

@@ -1,7 +1,8 @@
 const Discord = require("discord.js")
 const { MongoClient } = require("mongodb")
-const { Report } = require('../../Database/loadModels')
 const mongoose = require("mongoose")
+
+const { Report } = require('../../Database/loadModels')
 const { cluster } = require("../../config.json")
 const client = new MongoClient(cluster)
 
