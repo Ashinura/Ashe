@@ -13,7 +13,6 @@ const loadEvents = require("./Loaders/loadEvents")
 bot.commands = new Discord.Collection()
 
 bot.color = "#fcf3cf"
-
 bot.dev = 756785614812348486
 
 bot.login(token)
