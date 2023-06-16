@@ -19,7 +19,7 @@ module.exports = {
         {
             type: "string",
             name: "temps",
-            description: "La durée du mute. ( écrire 14d pour 14 jours  |  4h -> 4 heures  |  5m -> minutes )", 
+            description: "La durée du time-out. ( écrire 14d pour 14 jours  |  4h -> 4 heures  |  5m -> minutes )", 
             required: true,
             autocomplete: false
         },
@@ -87,6 +87,9 @@ module.exports = {
         if (member && message.member.roles.highest.comparePositionTo(member.roles.highest) <= 0) return message.reply("\`❌\` | Ce membre est supérieur à toi")
         if (member.isCommunicationDisabled()) return message.reply("\`❌\` | Ce membre est déjà mute")
 
+
+        await member.timeout(ms(time), reason)
+
         if (notif == 'Oui') {
 
             const notifuser = new Discord.EmbedBuilder()
@@ -98,8 +101,6 @@ module.exports = {
 
             try {await user.send({embeds: [notifuser]})} catch(err) {}
         }
-
-        await member.timeout(ms(time), reason)
 
         const Embed = new Discord.EmbedBuilder()
             .setColor(bot.color)
