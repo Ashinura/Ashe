@@ -2,8 +2,8 @@ const Discord = require("discord.js")
 
 module.exports = {
 
-    name: "unmute",
-    description: "Unmute un membre",
+    name: "rmtimeout",
+    description: "Enlever le time-out d'un membre",
     permission: Discord.PermissionFlagsBits.ModerateMembers,
     category: "Modération",
     dm: false,
@@ -11,14 +11,14 @@ module.exports = {
         {
             type: "user",
             name: "membre",
-            description: "Le membre dont vous voulez arrêter l'exclusion",
+            description: "Le membre dont vous voulez arrêter le time-out",
             required: true,
             autocomplete: false
         },
         {
             type: "string",
             name: "raison",
-            description: "La raison de l'arrêt de l'exclusion", 
+            description: "La raison de l'arrêt de le time-out", 
             required: true,
             autocomplete: false
         },
@@ -34,10 +34,10 @@ module.exports = {
     async run(bot, message, args) {
 
         let user = await bot.users.fetch(args._hoistedOptions[0].value)
-        if (!user) return message.reply("\`❗ |\` Pas de membre à bannir")
+        if (!user) return message.reply("\`❗ |\` Aucun membre à enlever le time-out")
 
         let member = message.guild.members.cache.get(user.id)
-        if (!member) return message.reply("\`❗ |\` Pas de membre à expulser")
+        if (!member) return message.reply("\`❗ |\` Aucun membre à enlever le time-out")
 
         let reason = args.getString("raison")
         if (!reason) { reason = "Aucune raison fournie."}
@@ -45,9 +45,9 @@ module.exports = {
         let notif = args.getString("notification")
         if (!notif) notif = 'Non'
 
-        if (member && member.moderetable == false) return message.reply("\`❌ |\`Ce membre ne peux pas être unmute")
+        if (member && member.moderetable == false) return message.reply("\`❌ |\`Tu ne peux pas enlever le time-out de ce membre")
         if (member && message.member.roles.highest.comparePositionTo(member.roles.highest) <= 0) return message.reply("\`❌ |\`Ce membre est supérieur à toi")
-        if (!member.isCommunicationDisabled()) return message.reply("\`❌ |\`Ce membre n'est pas mute")
+        if (!member.isCommunicationDisabled()) return message.reply("\`❌ |\`Ce membre n'est pas time-out")
 
         if (notif == 'Oui') {
 
@@ -55,8 +55,8 @@ module.exports = {
             .setColor(bot.color)
             .setThumbnail(message.guild.iconURL({ dynamic: true }))
         
-            .setTitle(`😮‍💨 | Tu as été unmute`)
-            .setDescription(`Tu as été unmute de \`${message.guild.name}\`   \n\n**Raison :** \`${reason}\``)
+            .setTitle(`😮‍💨 | Tu n'est plus time-out`)
+            .setDescription(`Tu n'est plus time-out de \`${message.guild.name}\`   \n\n**Raison :** \`${reason}\``)
 
             try {await user.send({embeds: [notifuser]})} catch(err) {}
         }
@@ -69,8 +69,8 @@ module.exports = {
             .setColor(bot.color)
             .setThumbnail(message.guild.iconURL({ dynamic: true }))
         
-            .setTitle(`😮‍💨 | Quelqu'un est unmute`)
-            .setDescription(`${message.user} a unmute : \`${user.tag}\`   \n\n**Raison : **\`${reason}\`\n**Notification : **\`${notif}\``)
+            .setTitle(`😮‍💨 | Quelqu'un a enlever le time-out d'un membre`)
+            .setDescription(`${message.user} a enlever le time-out de : \`${user.tag}\`   \n\n**Raison : **\`${reason}\`\n**Notification : **\`${notif}\``)
 
         await message.reply({embeds: [Embed] })
     }
