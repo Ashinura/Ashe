@@ -3,8 +3,8 @@ const ms = require("ms")
 
 module.exports = {
 
-    name: "mute",
-    description: "Mute un membre",
+    name: "timeout",
+    description: "time-out un membre",
     permission: "Aucune",
     category: "Modération",
     dm: false,
@@ -12,7 +12,7 @@ module.exports = {
         {
             type: "user",
             name: "membre",
-            description: "Le membre à mute",
+            description: "Le membre à time-out",
             required: true,
             autocomplete: false
         }, 
@@ -26,7 +26,7 @@ module.exports = {
         {
             type: "string",
             name: "raison",
-            description: "La raison du mute", 
+            description: "La raison du time-out", 
             required: true,
             autocomplete: false
         },
@@ -42,7 +42,7 @@ module.exports = {
     async run(bot, message, args) {
 
         let user = await bot.users.fetch(args._hoistedOptions[0].value)
-        if (!user) return message.reply("\`❗\` | Pas de membre à mute")
+        if (!user) return message.reply("\`❗\` | Pas de membre à time-out")
 
         let member = message.guild.members.cache.get(user.id)
         if (!member) return message.reply("\`❗\` | Ce membre n'est pas dans le serveur")
@@ -50,7 +50,7 @@ module.exports = {
         let time = args.getString("temps")
         if (!time) return message.reply("\`❗\` | Aucune durée définie")
         if (isNaN(ms(time))) return message.reply("\`❗\` | Veuillez indiquer un nombre correct")
-        if (ms(time) > 2419200000) return message.reply("\`❗\` | La durée maximum d'un mute est de 28 jours soit 4 semaines")
+        if (ms(time) > 2419200000) return message.reply("\`❗\` | La durée maximum d'un time-out est de 28 jours soit 4 semaines")
 
         let reason = args.getString("raison")
         if (!reason) { reason = "Aucune raison fournie."}
@@ -81,11 +81,11 @@ module.exports = {
             }
         }
 
-        if (message.user.id === user.id) return message.reply("\`❌\` | Tu ne peux pas te mute")
-        if ( (await message.guild.fetchOwner()).id === user.id) return message.reply("\`❌\` | Tu ne peux pas mute le propriétaire de ce serveur")
-        if (member && member.moderetable == false) return message.reply("\`❌\` | Ce membre ne peux pas être mute")
+        if (message.user.id === user.id) return message.reply("\`❌\` | Tu ne peux pas te time-out")
+        if ( (await message.guild.fetchOwner()).id === user.id) return message.reply("\`❌\` | Tu ne peux pas time-out le propriétaire de ce serveur")
+        if (member && member.moderetable == false) return message.reply("\`❌\` | Ce membre ne peux pas être time-out")
         if (member && message.member.roles.highest.comparePositionTo(member.roles.highest) <= 0) return message.reply("\`❌\` | Ce membre est supérieur à toi")
-        if (member.isCommunicationDisabled()) return message.reply("\`❌\` | Ce membre est déjà mute")
+        if (member.isCommunicationDisabled()) return message.reply("\`❌\` | Ce membre est déjà time-out")
 
 
         await member.timeout(ms(time), reason)
@@ -96,8 +96,8 @@ module.exports = {
             .setColor(bot.color)
             .setThumbnail(bot.user.displayAvatarURL({ dynamic: true }))
         
-            .setTitle(`🤐 | Tu as été mute`)
-            .setDescription(`Tu as été mute de \`${message.guild.name}\`   \n\n**Durée :** \`${durée}\`\n**Raison :** \`${reason}\``)
+            .setTitle(`🤐 | Tu as été time-out`)
+            .setDescription(`Tu as été time-out de \`${message.guild.name}\`   \n\n**Durée :** \`${durée}\`\n**Raison :** \`${reason}\``)
 
             try {await user.send({embeds: [notifuser]})} catch(err) {}
         }
@@ -106,8 +106,8 @@ module.exports = {
             .setColor(bot.color)
             .setThumbnail(bot.user.displayAvatarURL({ dynamic: true }))
         
-            .setTitle(`🤐 | Quelqu'un est mute`)
-            .setDescription(`${message.user} a mute : \`${user.tag}\`   \n\n**Durée :** \`${durée}\`\n**Raison : **\`${reason}\`\n**Notification : **\`${notif}\``)
+            .setTitle(`🤐 | Quelqu'un est time-out`)
+            .setDescription(`${message.user} a time-out : \`${user.tag}\`   \n\n**Durée :** \`${durée}\`\n**Raison : **\`${reason}\`\n**Notification : **\`${notif}\``)
 
         await message.reply({embeds: [Embed] })
     }
