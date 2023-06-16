@@ -11,14 +11,14 @@ module.exports = {
         {
             type: "user",
             name: "membre",
-            description: "Le membre à unmute",
+            description: "Le membre dont vous voulez arrêter l'exclusion",
             required: true,
             autocomplete: false
         },
         {
             type: "string",
             name: "raison",
-            description: "La raison du unmute", 
+            description: "La raison de l'arrêt de l'exclusion", 
             required: true,
             autocomplete: false
         },
@@ -43,7 +43,7 @@ module.exports = {
         if (!reason) { reason = "Aucune raison fournie."}
 
         let notif = args.getString("notification")
-        if (!notif) notif = 'Oui'
+        if (!notif) notif = 'Non'
 
         if (member && member.moderetable == false) return message.reply("\`❌ |\`Ce membre ne peux pas être unmute")
         if (member && message.member.roles.highest.comparePositionTo(member.roles.highest) <= 0) return message.reply("\`❌ |\`Ce membre est supérieur à toi")
@@ -70,7 +70,7 @@ module.exports = {
             .setThumbnail(message.guild.iconURL({ dynamic: true }))
         
             .setTitle(`😮‍💨 | Quelqu'un est unmute`)
-            .setDescription(`${message.user} a mute : \`${user.tag}\`   \n\n**Raison : **\`${reason}\`\n**Notification : **\`${notif}\``)
+            .setDescription(`${message.user} a unmute : \`${user.tag}\`   \n\n**Raison : **\`${reason}\`\n**Notification : **\`${notif}\``)
 
         await message.reply({embeds: [Embed] })
     }

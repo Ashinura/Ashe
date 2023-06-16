@@ -1,10 +1,13 @@
 const Discord = require("discord.js")
+const ms = require("ms")
+
 const { MongoClient } = require("mongodb")
 const mongoose = require("mongoose")
 
 const { Report } = require('../../Database/loadModels')
 const { cluster } = require("../../config.json")
 const client = new MongoClient(cluster)
+
 
 module.exports = {
 
@@ -61,10 +64,18 @@ module.exports = {
         let indexNumber = 0
         let save = undefined
 
+        const Embed = new Discord.EmbedBuilder()
+            .setColor(bot.color)
+            .setThumbnail(message.guild.iconURL({ dynamic: true }))
+
+            .setTitle(`📝 | Quelqu'un à été report`)
+            .setDescription(`${message.user} a report : \`${user.tag}\`   \n\n**Raison : **\`${modoReason}\`\n**Notification : **\`${notif}\``)
+        
+
         
         async function newGuild() {
 
-            await mongoose.connect('mongodb+srv://AsheTheBot:F9J8OJApmOqXv5xV@ashe.hprndkb.mongodb.net/Ashe')
+            await mongoose.connect(cluster)
 
             const Reports = new Report({
                 
@@ -81,6 +92,8 @@ module.exports = {
 
             Reports.save()
 
+            await message.reply({embeds: [Embed] })
+
             return "newGuildReport ▬ ✅"
         }
 
@@ -88,19 +101,23 @@ module.exports = {
 
         async function newUser() {
 
-            Report.findOneAndUpdate(
-
-                {serverName: message.guild.name},
-                {serverID: message.guild.id},
-                {$push: {
-            
-                    users: newUserObject
-            
+            Report.findOneAndUpdate({ serverID: message.guild.id }, { 
+                
+                $push: { 
+                    users: { 
+                        userTag: user.tag, 
+                        userID: user.id, 
+                        reason: [modoReason], 
+                        count: 1 
+                    } 
+        
                 }}, (error, data) => {
             
                     save = data
                 }
             )
+            
+            await message.reply({embeds: [Embed] })
 
             return "newUserReport ▬ ✅"
         }
@@ -109,54 +126,111 @@ module.exports = {
         
         async function updateUser() {
 
-            Report.findOne({serverID: message.guild.id}, (error, data) => {
+            Report.findOne({serverID: message.guild.id}, async(error, data) => {
 
                 const getUserID = data.users[indexNumber].userID
                 const getCount = data.users[indexNumber].count
                 const newCount = getCount + 1
-
-                if (getUserID === user.id) {
                 
-                    Report.findOneAndUpdate({'users.userID': user.id}, 
-        
-                    {$set: {
-        
-                        'users.$.count': newCount
-        
-                    }}, (error, data) => {
-        
-                        save = data
-                    })
-        
-        
-                    Report.findOneAndUpdate({'users.userID': user.id},
-                               
-                    {$push: {
-        
-                        'users.$.reason': modoReason
-        
-                    }}, (error, data) => {
-        
-                        save = data
-                    })
-        
-                    statut = false
-                }
+                if (getCount >= 3 || newCount == 3) {
 
-                else message.reply("\`❗ |\` Une erreur s'est produite")
-            }) 
+                    let time = '7d'
+                    let result = time.indexOf("d")
+                    let durée = "Not found"
+
+                    if (result != -1) { durée = time.replace("d", " jours") }
+
+                    member.timeout(ms(time))
+                    console.log('TimeOutReport ▬ ✅')
+
+                    Report.findOneAndUpdate({ serverID: message.guild.id }, { 
+                
+                        $pull: { 
+                            users: { 
+                                userID: user.id, 
+                            } 
+                
+                        }}, (error, data) => {
+                    
+                            save = data
+                        }
+                    )
+
+                    if (notif == 'Oui') {
+
+                        const notifuser = new Discord.EmbedBuilder()
+                        .setColor(bot.color)
+                        .setThumbnail(bot.user.displayAvatarURL({ dynamic: true }))
+                    
+                        .setTitle(`🤐 | Tu as été time-out`)
+                        .setDescription(`Tu as été mute de \`${message.guild.name}\`   \n\n**Durée :** \`${durée}\`\n**Raison :** \`${modoReason}\``)
+            
+                        try {user.send({embeds: [notifuser]})} catch(err) {}
+                    }
+
+                    const EmbedTO = new Discord.EmbedBuilder()
+                        .setColor(bot.color)
+                        .setThumbnail(bot.user.displayAvatarURL({ dynamic: true }))
+
+                        .setTitle(`🤐 | Quelqu'un à été time-out suite à son troisième report`)
+                        .setDescription(`Membre : \`${user.tag}\`   \n\n**Durée :** \`${durée}\`\n**Raison : **\`${modoReason}\`\n**Notification : **\`${notif}\``)
+
+                    await message.reply({embeds: [EmbedTO] })
+
+                    deleteEmptyUsers()
+                }
+                
+
+                else {
+
+                    Report.findOneAndUpdate({ serverID: message.guild.id, "users.userID": user.id }, { 
+
+                        $set: { "users.$.count": newCount }, 
+                        $push: { "users.$.reason": modoReason }
+
+                    }, (error, data) => {
+            
+                        save = data
+                    })
+
+                    await message.reply({embeds: [Embed] })
+                }
+            })
 
             return "updateUserReport ▬ ✅"
         }
 
 
 
+
+
+        async function deleteEmptyUsers() {
+
+            await mongoose.connect(cluster)
+        
+            Report.deleteMany({ users: [] }, (error, result) => {
+                
+                if (result.deletedCount != 0 ) { 
+
+                    console.log("deleteEmptyUsers ▬ ✅")
+                }
+            })
+              
+        }
+
+
+
+
+
         async function verif() {
 
-            await mongoose.connect('mongodb+srv://AsheTheBot:F9J8OJApmOqXv5xV@ashe.hprndkb.mongodb.net/Ashe')
+            await mongoose.connect(cluster)
+
+            deleteEmptyUsers()
 
             let statut = true
             indexNumber = 0
+            
             
             Report.findOne({serverID: message.guild.id}, (error, data) => {
 
@@ -186,18 +260,21 @@ module.exports = {
     
                         else indexNumber++
                     } 
-                }
 
-                if (indexNumber == data.users.length) {
+                    if (indexNumber == data.users.length) {
 
-                    newUser()
-                        .catch(console.error)
-                        .then(console.log)
+                        newUser()
+                            .catch(console.error)
+                            .then(console.log)
+                    }
                 }
             })
 
             return "Vérification pour report ▬ ✅"
         }
+
+
+
 
 
         verif()
@@ -216,15 +293,5 @@ module.exports = {
 
             try {await user.send({embeds: [notifuser]})} catch(err) {}
         }
-        
-
-        const Embed = new Discord.EmbedBuilder()
-            .setColor(bot.color)
-            .setThumbnail(message.guild.iconURL({ dynamic: true }))
-
-            .setTitle(`📝 | Quelqu'un à été report`)
-            .setDescription(`${message.user} a report : \`${user.tag}\`   \n\n**Raison : **\`${modoReason}\`\n**Notification : **\`${notif}\``)
-
-        await message.reply({embeds: [Embed] })
     }
 }
