@@ -34,8 +34,8 @@ module.exports = {
     async run(bot, message, args) {
 
         let number = args.getNumber("nombre")
-        if (!number) { number = 100 }
-        if (parseInt(number) < 1 || parseInt(number) > 100) return message.reply("\`❌\` | Nombres entier entre 1 et 100 uniquements")
+        if (!number) { number = 99 }
+        if (parseInt(number) < 1 || parseInt(number) > 100) return message.reply("\`❌\` | Nombres entier entre 1 et 99 uniquements")
 
         let channel = args.getChannel("salon")
         if (!channel) { channel = message.channel }
@@ -51,31 +51,32 @@ module.exports = {
             memberID = member.id
         }
 
-        await message.deferReply()
+        await message.deferReply({ephemeral: true})
 
         if (user === null) {
 
             try {
 
-                const clear = await channel.bulkDelete(parseInt(number))
+                let clear = await channel.bulkDelete(parseInt(number))
     
-                await message.followUp({content: `Suppression de ${clear.size} messages dans le salon ${channel} terminé`, ephemeral: true})
+                await message.editReply(`Suppression de **${clear.size}** messages dans le salon ${channel} terminé`)
             } 
             
             catch (err) {
+
+                let messages = [...(await channel.messages.fetch()).filter(msg => !msg.interaction && (Date.now() - msg.createdAt) < 1209600000).values()] 
     
-                const messages = [...(await channel.messages.fetch()).filter(msg => !msg.interaction && (Date.now() - msg.createdAt) <= 1209600000).values()]
-    
-                if (messages.length <= 0) return message.followUp({content: "\`❌\` | Aucun messages à supprimer car ils datent tous de + de 14 jours", ephemeral: true})
+                if (messages.length <= 0) return message.followUp({content: "\`❌\` | **Aucun** messages à supprimer car ils datent tous de + de 14 jours", ephemeral: true})
     
                 else {
 
                     await channel.bulkDelete(messages)
                 
-                    await message.followUp({content: `\`❗\` | Suppression de ${messages.length} messages uniquement car les autres messages dataient de + de 14 jours`, ephemeral: true})
+                    await message.editReply({content: `\`❗\` | Suppression de **${messages.length}** messages uniquement car les autres messages dataient de + de 14 jours`, ephemeral: true})
                 }
             }
         }
+
 
         else if (user !== null && memberID === user.id) {
 
@@ -83,13 +84,13 @@ module.exports = {
 
                 const messages = [...(await channel.messages.fetch()).values()].filter(msg => msg.author.id === memberID).slice(0, parseInt(number))
 
-                if (messages.length <= 0) return message.followUp({content: `\`❌\` | ${user.tag} n'a envoyé aucun messages dans ce salon`, ephemeral: true})
+                if (messages.length <= 0) return message.editReply({content: `\`❌\` | **${user.tag}** n'a envoyé aucun messages dans ce salon`, ephemeral: true})
 
                 else {
 
                     const clear = await channel.bulkDelete(messages)
     
-                    await message.followUp({content: `Suppression de ${clear.size} messages de ${user.tag} dans le salon ${channel} terminé`, ephemeral: true})
+                    await message.editReply({content: `Suppression de **${clear.size}** messages de **${user.tag}** dans le salon ${channel} terminé`, ephemeral: true})
                 }
             } 
             
@@ -97,13 +98,13 @@ module.exports = {
 
                 const messages = [...(await channel.messages.fetch()).values()].filter(msg => msg.author.id === memberID && (Date.now() - msg.createdAt) <= 1209600000).slice(0, parseInt(number))
 
-                if (messages.length <= 0) return message.followUp({content: "\`❌\` | Aucun messages à supprimer car ils datent tous de + de 14 jours", ephemeral: true})
+                if (messages.length <= 0) return message.followUp({content: "\`❌\` | **Aucun** messages à supprimer car ils datent tous de + de 14 jours", ephemeral: true})
     
                 else {
 
                     await channel.bulkDelete(messages)
 
-                    await message.followUp(`\`❗\` | Suppression de ${messages.length} messages de **${user.tag}** uniquement car les autres messages dataient de + de 14 jours`)
+                    await message.editReply(`\`❗\` | Suppression de **${messages.length}** messages de **${user.tag}** uniquement car les autres messages dataient de + de 14 jours`)
                 }
             }
         }
