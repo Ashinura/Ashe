@@ -36,7 +36,7 @@ module.exports = async (bot, interaction) => {
 
             let choices = ["Oui", "Non"]
             const filtered = choices.filter(choice => choice.startsWith(entry));
-		    await interaction.respond(filtered.map(choice => ({ name: choice, value: choice })))
+		    try { await interaction.respond(filtered.map(choice => ({ name: choice, value: choice }))) } catch {  }
         }
     }    
 

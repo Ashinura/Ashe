@@ -9,7 +9,7 @@ const client = new MongoClient(cluster)
 
 module.exports = {
     name: "configchannel",
-    description: "Permet de configurer un salon pour envoyer un message lors d'un évènement quelconque",
+    description: "Permet de configurer un salon pour envoyer un message lors d'un événement quelconque",
     permission: Discord.PermissionFlagsBits.ManageGuild,
     category: "Modération",
     dm: false,
@@ -17,7 +17,7 @@ module.exports = {
         {
             type: "channel",
             name: "salon",
-            description: "le salon a vérouillé",
+            description: "le salon a configurer",
             required: true,
             autocomplete: false
         }, {
@@ -37,8 +37,8 @@ module.exports = {
         let channel = message.guild.channels.cache.get(salon.id)
         if (!channel) return message.reply(`\`❌\` | Aucun salon trouvé`)
 
-        let event = args.getString('évènement')
-        if (!event) return message.reply(`\`❌\` | Aucun évènement trouvé`)
+        let event = args.getString('événement')
+        if (!event) return message.reply(`\`❌\` | Aucun événement trouvé`)
 
         let newEvent = event
 

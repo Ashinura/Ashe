@@ -48,12 +48,14 @@ module.exports = {
                 》 **/help**
                 》 **/ping**
                 》 **/link**
+                》 **/configchannel**
 
 
                 **📜・Information**
                 
-                》 **/sinfo**
-                》 **/uinfo**
+                》 **/servinfo**
+                》 **/userinfo**
+                》 **/getowner**
 
                 **🔧・Modération** 
 
@@ -62,8 +64,8 @@ module.exports = {
                 》 **/kick**
                 》 **/ban**
                 》 **/unban**
-                》 **/mute**
-                》 **/unmute**
+                》 **/timeout**
+                》 **/rmtimeout**
                 》 **/lock**
                 》 **/unlock**
 

@@ -39,7 +39,7 @@ module.exports = {
                 SendMessages: true
             })
 
-            await message.reply({ content: `✅ - Salon dévérouillé | Vous pouvez enlever ce message`, ephemeral: true })
+            await message.reply({ content: `\`✅\` | Salon dévérouillé, vous pouvez enlever ce message`, ephemeral: true })
 
             const Embed = new Discord.EmbedBuilder()
                 .setColor(bot.color)

@@ -104,7 +104,7 @@ module.exports = {
 
         const Embed = new Discord.EmbedBuilder()
             .setColor(bot.color)
-            .setThumbnail(bot.user.displayAvatarURL({ dynamic: true }))
+            .setThumbnail(message.guild.iconURL({ dynamic: true }))
         
             .setTitle(`🤐 | Quelqu'un est time-out`)
             .setDescription(`${message.user} a time-out : \`${user.tag}\`   \n\n**Durée :** \`${durée}\`\n**Raison : **\`${reason}\`\n**Notification : **\`${notif}\``)
