@@ -29,7 +29,7 @@ module.exports = ("guildCreate", async (bot, guild) => {
 
         Guild.save()
 
-        return "guildCreate ▬ ✅"
+        return "✅ ▬ guildCreate"
     }
 
     async function verif() {
@@ -53,7 +53,7 @@ module.exports = ("guildCreate", async (bot, guild) => {
             console.log(`Serveur déjà présent : ${guild.name} ▬ ✅`)
         }
 
-        return "Vérification pour guildCreate ▬ ✅"
+        return "✅ ▬ Vérification pour guildCreate"
     }
 
     verif()

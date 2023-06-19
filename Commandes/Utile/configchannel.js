@@ -108,7 +108,7 @@ module.exports = {
 
             await message.reply({embeds: [Embed] })
 
-            return "updateChannel ▬ ✅"
+            return "✅ ▬ updateChannel"
         }
 
 
@@ -135,7 +135,7 @@ module.exports = {
                 }
             })
 
-            return "Vérification pour configChannel ▬ ✅"
+            return "✅ ▬ Vérification pour configChannel"
         }
 
         verif()

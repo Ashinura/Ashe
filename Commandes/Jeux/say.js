@@ -22,6 +22,6 @@ module.exports = {
         const usermsg = args.getString('phrase')
 
         message.channel.send({content: usermsg, ephemeral: true})
-        await message.reply({content: '✅ - Envoie effectué | Vous pouvez enlever ce message', ephemeral: true})
+        await message.reply({content: '✅ | Envoie effectué, vous pouvez enlever ce message', ephemeral: true})
     }  
 }

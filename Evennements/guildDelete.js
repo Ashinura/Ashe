@@ -16,7 +16,7 @@ module.exports = ("guildDelete", async (bot, guild) => {
     
         await guilds_coll.findOneAndDelete({guildID: guild.id})
      
-        return "guildDelete ▬ ✅"
+        return "✅ ▬ guildDelete"
     }
 
     main()

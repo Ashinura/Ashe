@@ -94,7 +94,7 @@ module.exports = {
 
             await message.reply({embeds: [Embed] })
 
-            return "newGuildReport ▬ ✅"
+            return "✅ ▬ newGuildReport"
         }
 
 
@@ -119,7 +119,7 @@ module.exports = {
             
             await message.reply({embeds: [Embed] })
 
-            return "newUserReport ▬ ✅"
+            return "✅ ▬ newUserReport"
         }
 
 
@@ -141,7 +141,7 @@ module.exports = {
                     if (result != -1) { durée = time.replace("d", " jours") }
 
                     member.timeout(ms(time))
-                    console.log('TimeOutReport ▬ ✅')
+                    console.log('✅ ▬ TimeOutReport')
 
                     Report.findOneAndUpdate({ serverID: message.guild.id }, { 
                 
@@ -197,7 +197,7 @@ module.exports = {
                 }
             })
 
-            return "updateUserReport ▬ ✅"
+            return "✅ ▬ updateUserReport"
         }
 
 
@@ -212,7 +212,7 @@ module.exports = {
                 
                 if (result.deletedCount != 0 ) { 
 
-                    console.log("deleteEmptyUsers ▬ ✅")
+                    console.log("✅ ▬ deleteEmptyUsers")
                 }
             })
               
@@ -247,7 +247,7 @@ module.exports = {
         
                         const getUserID = data.users[indexNumber].userID
 
-                        if (data.users == null) console.log("Vérification pour report ▬ 💬")
+                        if (data.users == null) console.log("💬 ▬ Vérification pour report")
     
                         if (getUserID === user.id) {
                         
@@ -270,7 +270,7 @@ module.exports = {
                 }
             })
 
-            return "Vérification pour report ▬ ✅"
+            return "✅ ▬ Vérification pour report"
         }
 
 

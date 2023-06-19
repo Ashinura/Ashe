@@ -45,7 +45,7 @@ module.exports = async(bot) => {
             
         })
 
-        return "Commandes ▬ ✅"
+        return "✅ ▬ Commandes"
     }
 
     commands()

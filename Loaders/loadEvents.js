@@ -10,7 +10,7 @@ module.exports = async(bot) => {
             bot.on(file.split(".js").join(""), event.bind(null, bot))
         })
 
-        return "Evennements ▬ ✅"
+        return "✅ ▬ Evennements"
     }
 
     events()

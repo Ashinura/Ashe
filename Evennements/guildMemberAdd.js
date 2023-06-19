@@ -25,7 +25,7 @@ module.exports = ("guildMemberAdd", async (bot, member) => {
             welcomeChannel.send({ embeds: [welcomeEmbed]})
         }
 
-        return "memberJoin ▬ ✅"
+        return "✅ ▬ memberJoin"
     }
 
     async function searchChannel() {
@@ -44,12 +44,9 @@ module.exports = ("guildMemberAdd", async (bot, member) => {
                 .catch(console.error)
                 .then(console.log)
         }
-
-        return "searchChannel ▬ ✅"
     }
 
     searchChannel()
         .catch(console.error)
-        .then(console.log)
         .finally(() => client.close())
 })

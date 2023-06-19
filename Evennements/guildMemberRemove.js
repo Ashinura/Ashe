@@ -26,7 +26,7 @@ module.exports = ("guildMemberRemove", async (bot, member) => {
             goodbyeChannel.send({ embeds: [goodbyeEmbed]})
         }
 
-        return "memberLeave ▬ ✅"
+        return "✅ ▬ memberLeave"
     }
 
     async function searchChannel() {
@@ -45,12 +45,9 @@ module.exports = ("guildMemberRemove", async (bot, member) => {
                 .catch(console.error)
                 .then(console.log)
         }
-
-        return "searchChannel ▬ ✅"
     }
 
     searchChannel()
         .catch(console.error)
-        .then(console.log)
         .finally(() => client.close())
 })
