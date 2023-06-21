@@ -36,7 +36,8 @@ module.exports = {
         if (channel.permissionOverwrites.cache.get(message.guild.roles.everyone.id)?.deny.toArray(true).includes("SendMessages") == true) {
 
             channel.permissionOverwrites.edit(message.guild.roles.everyone, {
-                SendMessages: true
+                SendMessages: true,
+                Connect: true
             })
 
             await message.reply({ content: `\`✅\` | Salon dévérouillé, vous pouvez enlever ce message`, ephemeral: true })

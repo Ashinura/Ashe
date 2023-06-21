@@ -1,4 +1,5 @@
 const Discord = require("discord.js")
+const { connect } = require("mongoose")
 
 module.exports = {
     name: "lock",
@@ -42,7 +43,8 @@ module.exports = {
         else {
 
             channel.permissionOverwrites.edit(message.guild.roles.everyone, {
-                SendMessages: false
+                SendMessages: false, 
+                Connect: false
             })
     
             await message.reply({ content: `\`✅\` | Salon vérouillé, vous pouvez enlever ce message`, ephemeral: true })
