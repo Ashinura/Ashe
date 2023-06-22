@@ -96,7 +96,7 @@ module.exports = {
             .setColor(bot.color)
             .setThumbnail(bot.user.displayAvatarURL({ dynamic: true }))
         
-            .setTitle(`🤐 | Tu as été time-out`)
+            .setTitle(`\`🤐\` | Tu as été time-out`)
             .setDescription(`Tu as été time-out de \`${message.guild.name}\`   \n\n**Durée :** \`${durée}\`\n**Raison :** \`${reason}\``)
 
             try {await user.send({embeds: [notifuser]})} catch(err) {}
@@ -106,7 +106,7 @@ module.exports = {
             .setColor(bot.color)
             .setThumbnail(message.guild.iconURL({ dynamic: true }))
         
-            .setTitle(`🤐 | Quelqu'un est time-out`)
+            .setTitle(`\`🤐\` | Quelqu'un est time-out`)
             .setDescription(`${message.user} a time-out : \`${user.tag}\`   \n\n**Durée :** \`${durée}\`\n**Raison : **\`${reason}\`\n**Notification : **\`${notif}\``)
 
         await message.reply({embeds: [Embed] })

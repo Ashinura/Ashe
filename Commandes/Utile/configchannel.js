@@ -99,7 +99,7 @@ module.exports = {
                 .setColor(bot.color)
                 .setThumbnail(message.guild.iconURL({ dynamic: true }))
 
-                .setTitle(`🔧 | Configuration`)
+                .setTitle(`\`🔧\` | Configuration`)
                 .setDescription(`
                 **Mise à jour d'un salon :**
 

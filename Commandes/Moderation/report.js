@@ -68,7 +68,7 @@ module.exports = {
             .setColor(bot.color)
             .setThumbnail(message.guild.iconURL({ dynamic: true }))
 
-            .setTitle(`📝 | Quelqu'un à été report`)
+            .setTitle(`\`📝\` | Quelqu'un à été report`)
             .setDescription(`${message.user} a report : \`${user.tag}\`   \n\n**Raison : **\`${modoReason}\`\n**Notification : **\`${notif}\``)
         
 
@@ -162,7 +162,7 @@ module.exports = {
                         .setColor(bot.color)
                         .setThumbnail(message.guild.iconURL({ dynamic: true }))
                     
-                        .setTitle(`🤐 | Tu as été time-out`)
+                        .setTitle(`\`🤐\` | Tu as été time-out`)
                         .setDescription(`Tu as été mute de \`${message.guild.name}\`   \n\n**Durée :** \`${durée}\`\n**Raison :** \`${modoReason}\``)
             
                         try {user.send({embeds: [notifuser]})} catch(err) {}
@@ -172,7 +172,7 @@ module.exports = {
                         .setColor(bot.color)
                         .setThumbnail(message.guild.iconURL({ dynamic: true }))
 
-                        .setTitle(`🤐 | Quelqu'un à été time-out suite à son troisième report`)
+                        .setTitle(`\`🤐\` | Quelqu'un à été time-out suite à son troisième report`)
                         .setDescription(`Membre : \`${user.tag}\`   \n\n**Durée :** \`${durée}\`\n**Raison : **\`${modoReason}\`\n**Notification : **\`${notif}\``)
 
                     await message.reply({embeds: [EmbedTO] })
@@ -288,7 +288,7 @@ module.exports = {
             .setColor(bot.color)
             .setThumbnail(message.guild.iconURL({ dynamic: true }))
         
-            .setTitle(`📝 | Tu as été report`)
+            .setTitle(`\`📝\` | Tu as été report`)
             .setDescription(`Tu as été report de \`${message.guild.name}\` par ${message.user.tag}  \n\nRaison : \`${modoReason}\``)
 
             try {await user.send({embeds: [notifuser]})} catch(err) {}

@@ -56,7 +56,7 @@ module.exports = {
                 .setColor(bot.color)
                 .setThumbnail(message.guild.iconURL({ dynamic: true }))
             
-                .setTitle(`🛡️ | Tu as été banni`)
+                .setTitle(`\`🛡️\` | Tu as été banni`)
                 .setDescription(`Tu as été banni de \`${message.guild.tag}\`\n\nRaison : \`${reason}\``)
     
                 try {await user.send({embeds: [notifuser]})} catch(err) {}
@@ -66,7 +66,7 @@ module.exports = {
                 .setColor(bot.color)
                 .setThumbnail(message.guild.iconURL({ dynamic: true }))
 
-                .setTitle(`🛡️ | Quelqu'un est débanni`)
+                .setTitle(`\`🛡️\` | Quelqu'un est débanni`)
                 .setDescription(`${message.user} a débanni : \`${user.tag}\`   \n\n**Raison : **\`${reason}\`\n**Notification : **\`${notif}\``)
 
             await message.reply({embeds: [Embed] })

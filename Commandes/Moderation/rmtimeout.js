@@ -55,7 +55,7 @@ module.exports = {
             .setColor(bot.color)
             .setThumbnail(message.guild.iconURL({ dynamic: true }))
         
-            .setTitle(`😮‍💨 | Tu n'est plus time-out`)
+            .setTitle(`\`😮‍💨\` | Tu n'est plus time-out`)
             .setDescription(`Tu n'est plus time-out de \`${message.guild.name}\`   \n\n**Raison :** \`${reason}\``)
 
             try {await user.send({embeds: [notifuser]})} catch(err) {}
@@ -69,7 +69,7 @@ module.exports = {
             .setColor(bot.color)
             .setThumbnail(message.guild.iconURL({ dynamic: true }))
         
-            .setTitle(`😮‍💨 | Quelqu'un a enlever le time-out d'un membre`)
+            .setTitle(`\`😮‍💨\` | Quelqu'un a enlever le time-out d'un membre`)
             .setDescription(`${message.user} a enlever le time-out de : \`${user.tag}\`   \n\n**Raison : **\`${reason}\`\n**Notification : **\`${notif}\``)
 
         await message.reply({embeds: [Embed] })

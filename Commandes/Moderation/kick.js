@@ -56,7 +56,7 @@ module.exports = {
             .setColor(bot.color)
             .setThumbnail(message.guild.iconURL({ dynamic: true }))
         
-            .setTitle(`🥊 | Tu as été expulsé`)
+            .setTitle(`\`🥊\` | Tu as été expulsé`)
             .setDescription(`Tu as été expulsé de \`${message.guild.name}\`   \n\n**Raison :** \`${reason}\``)
 
             try {await user.send({embeds: [notifuser]})} catch(err) {}
@@ -70,7 +70,7 @@ module.exports = {
             .setColor(bot.color)
             .setThumbnail(message.guild.iconURL({ dynamic: true }))
         
-            .setTitle(`🥊 | Expulsion d'un membre !`)
+            .setTitle(`\`🥊\` | Expulsion d'un membre !`)
             .setDescription(`${message.user} a expulser : \`${user.tag}\`   \n\n**Raison : **\`${reason}\`\n**Notification : **\`${notif}\``)
 
         await message.reply({embeds: [Embed] })

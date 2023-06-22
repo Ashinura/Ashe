@@ -54,7 +54,7 @@ module.exports = {
                 .setColor(bot.color)
                 .setThumbnail(bot.user.displayAvatarURL({ dynamic: true }))
     
-                .setTitle(`🔐 | Salon vérouillé`)
+                .setTitle(`\`🔐\` | Salon vérouillé`)
                 .setDescription(`${message.user} a vérouillé ce salon   \n\n**Raison : **\`${reason}\``)
     
             await channel.send({embeds: [Embed] })
