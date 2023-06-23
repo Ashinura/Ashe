@@ -7,19 +7,19 @@ const client = new MongoClient(cluster)
 
 module.exports = ("guildDelete", async (bot, guild) => {
     
-    async function main() {
+    async function guildDelete() {
 
         await client.connect()
 
         const db = client.db("Ashe")
         const guilds_coll = db.collection('guilds')
     
-        await guilds_coll.findOneAndDelete({guildID: guild.id})
+        await guilds_coll.findOneAndDelete({'Informations.guildID': guild.id})
      
         return "✅ ▬ guildDelete"
     }
 
-    main()
+    guildDelete()
         .catch(console.error)
         .then(console.log)
         .finally(() => client.close())

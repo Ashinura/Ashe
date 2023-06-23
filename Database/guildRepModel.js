@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 
-const newGuildReportModel = mongoose.Schema({
+const GuildReportModel = mongoose.Schema({
 
     serverName: {
         type: String,
@@ -24,4 +24,4 @@ const newGuildReportModel = mongoose.Schema({
     }]
 })
 
-module.exports = mongoose.model('Report', newGuildReportModel)
+module.exports = mongoose.model('Report', GuildReportModel)
