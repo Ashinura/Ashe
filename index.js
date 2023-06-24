@@ -6,8 +6,8 @@ const bot = new Discord.Client({intents})
 
 const { token } = require("./config.json")
 
-const loadCommand = require("./Loaders/loadCommands")
-const loadEvents = require("./Loaders/loadEvents")
+const { loadCommand } = require("./Loaders/loadCommands")
+const { loadEvents } = require("./Loaders/loadEvents")
 
 
 bot.commands = new Discord.Collection()
