@@ -6,7 +6,6 @@ const mongoose = require("mongoose")
 
 const { Report } = require('../../Database/loadModels')
 const { cluster } = require("../../config.json")
-const client = new MongoClient(cluster)
 
 
 module.exports = {
@@ -59,8 +58,6 @@ module.exports = {
         if ( (await message.guild.fetchOwner()).id === user.id) return message.reply("\`❌\` | Tu ne peux pas report le propriétaire de ce serveur")
         if (member && message.member.roles.highest.comparePositionTo(member.roles.highest) <= 0) return message.reply("\`❌\` | Ce membre est supérieur à toi")
 
-        const db = client.db("Ashe")
-        const reports_coll = db.collection('reports')
         let indexNumber = 0
         let save = undefined
 

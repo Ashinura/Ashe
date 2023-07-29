@@ -25,7 +25,7 @@ module.exports = {
     async run(bot, message, args) {
 
         let user = args.getUser("membre")
-        if (!user) return message.reply("\`❗\` | Pas de membre")
+        if (!user) user = message.user
 
 
         async function countRep() {
